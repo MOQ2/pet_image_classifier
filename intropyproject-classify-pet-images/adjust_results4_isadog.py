@@ -73,6 +73,7 @@ def adjust_results4_isadog(results_dic, dogfile):
     with open(dogfile, 'r') as file:
       for line in file:
         doge_names[line.strip()] = 1
+        
     for key in results_dic:
         # check if pet image label is a dog
         results_dic[key].append(1 if results_dic[key][0] in doge_names else 0)

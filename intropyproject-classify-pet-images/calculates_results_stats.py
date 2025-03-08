@@ -70,4 +70,39 @@ def calculates_results_stats(results_dic):
     """        
     # Replace None with the results_stats_dic dictionary that you created with 
     # this function 
-    return None
+    
+    results_stats_dic = {
+        'n_images': 0,
+        'n_dogs_img': 0,
+        'n_notdogs_img': 0,
+        'n_match': 0,
+        'n_correct_dogs': 0,
+        'n_correct_notdogs': 0,
+        'n_correct_breed': 0,
+        'pct_match': 0,
+        'pct_correct_dogs': 0,
+        'pct_correct_breed': 0,
+        'pct_correct_notdogs': 0 }
+
+    for key in results_dic:
+        results_stats_dic['n_images'] += 1
+        results_stats_dic['n_dogs_img'] += results_dic[key][3]
+        # if the pet is a dog then the result_dic[key][3] will be 1 and 1 - 1 = 0
+        # if the pet is not a dog then the result_dic[key][3] will be 0 and 1 - 0 = 1
+        results_stats_dic['n_notdogs_img'] += 1 - results_dic[key][3]
+        results_stats_dic['n_match'] += results_dic[key][2]
+        # the multiplication operation works as logical AND
+        results_stats_dic['n_correct_dogs'] += results_dic[key][3] * results_dic[key][4]
+        results_stats_dic['n_correct_notdogs'] += (1 - results_dic[key][3]) * (1 - results_dic[key][4])
+        results_stats_dic['n_correct_breed'] += results_dic[key][2] * results_dic[key][3]
+        
+    
+    results_stats_dic['pct_match'] = results_stats_dic['n_match'] / results_stats_dic['n_images'] * 100
+    results_stats_dic['pct_correct_dogs'] = results_stats_dic['n_correct_dogs'] / results_stats_dic['n_dogs_img'] * 100
+    results_stats_dic['pct_correct_breed'] = results_stats_dic['n_correct_breed'] / results_stats_dic['n_dogs_img'] * 100
+    if results_stats_dic['n_notdogs_img'] > 0:
+        results_stats_dic['pct_correct_notdogs'] = results_stats_dic['n_correct_notdogs'] / results_stats_dic['n_notdogs_img'] * 100
+    else:
+        results_stats_dic['pct_correct_notdogs'] = 0
+    
+    return results_stats_dic
