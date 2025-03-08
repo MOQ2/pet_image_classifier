@@ -68,7 +68,7 @@ def classify_images(images_dir, results_dic, model):
     
     for key in results_dic:
       # Get full path of image
-      image_path = images_dir + key
+      image_path = images_dir +"/"+ key
       
       # Use classifier function to get classifier label
       classifier_label = classifier(image_path, model)
