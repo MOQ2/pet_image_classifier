@@ -55,7 +55,7 @@ def get_pet_labels(image_dir):
       # convert the file name to lower case
       file_name = file_name.lower()
       # check if the file name is not in the dictionary
-      if file_name not in results_dic:
+      if not file_name.startswith('.'):
         # split the file name by '_'
         tokens = file_name.split('_')
         
@@ -64,11 +64,12 @@ def get_pet_labels(image_dir):
         for token in tokens:
           # check if the token is not a digit
           if token.isalpha():
-            
             pet_label += token + " "
+            
         # strip the pet label
         pet_label = pet_label.strip()
         # add the pet label to the dictionary
         results_dic[file_name] = [pet_label]
+        
         
     return results_dic
